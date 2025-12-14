@@ -23,12 +23,13 @@
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'Autos' %}">Autos</a>
                  <a class="navbar-brand" href="{% url 'Sucursales' %}">Sucursales</a>
-                  <a class="navbar-brand" href="{% url 'Ventas' %}">Ventas</a>
-                <a class="navbar-brand" href="{% url 'Cursos' %}">Cursos</a>
-                <a class="navbar-brand" href="{% url 'Entregables' %}">Entregables</a>
-                <a class="navbar-brand" href="{% url 'Estudiantes' %}">Estudiantes</a>
-                <a class="navbar-brand" href="{% url 'Profesores' %}">Profesores</a>
-                <a class="btn btn-primary" href="#signup">Sign Up</a>
+                    <a class="navbar-brand" href="{% url 'Ventas' %}">Ventas</a>
+                 <a class="btn btn-primary" href="#signup">Sign Up</a>
+                 <a class="btn btn-outline-primary" href="{% url 'busquedacamada' %}">Buscar Autos</a>
+                 <a class="btn btn-outline-primary" href="{% url 'FormularioSucursal' %}">Buscar Sucursales</a>
+                 <a class="btn btn-success" href="{% url 'AutosFormulario' %}">Agregar Auto</a>
+                 <a class="btn btn-success" href="{% url 'SucursalesFormulario' %}">Agregar Sucursal</a>
+
             </div>
         </nav>
         <!-- Masthead-->

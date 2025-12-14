@@ -3,25 +3,11 @@ from django.shortcuts import render
 
 from AppCoder.forms import AutosFormulario, SucursalesFormulario
 from AppCoder.models import Autos
-from AppCoder.models import Curso
 from AppCoder.models import Sucursales
 
 
 def inicio(request):
     return render (request , "appcoder/inicio.html")
-
-def cursos(request):
-    lista_curso = Curso.objects.all()
-    return render(request,"appcoder/cursos.html",{"cursos":lista_curso})
-
-def profesores(request):
-     return render(request,"appcoder/profesores.html")
-
-def estudiantes(request):
-     return render(request,"appcoder/estudiantes.html")
-
-def entregables(request):
-     return render(request,"appcoder/entregables.html")
 
 def Autos_view(request):
     Lista_Autos = Autos.objects.all()
