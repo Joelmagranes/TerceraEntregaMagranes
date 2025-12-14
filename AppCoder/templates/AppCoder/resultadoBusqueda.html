@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de búsqueda</title>
+</head>
+<body>
+    <p>Estamos buscando el modelo: {{ modelo }}</p>
+
+    {% if autos %}
+        <ul>
+            {% for auto in autos %}
+                <li>Marca: {{ auto.marca }} |
+                    Modelo: {{ auto.modelo }} |
+                    Año: {{ auto.anio }} |
+                    Color: {{ auto.color }} |
+                    Precio: {{ auto.precio }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Sin resultados</p>
+    {% endif %}
+</body>
+</html>

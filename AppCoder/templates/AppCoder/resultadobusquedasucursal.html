@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de búsqueda - Sucursales</title>
+</head>
+<body>
+    <p>Estamos buscando la ciudad: {{ ciudad }}</p>
+
+    {% if sucursales %}
+        <ul>
+            {% for sucursal in sucursales %}
+                <li>
+                    Ciudad: {{ sucursal.ciudad }} |
+                    País: {{ sucursal.pais }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Sin resultados</p>
+    {% endif %}
+</body>
+</html>

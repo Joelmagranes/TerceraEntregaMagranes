@@ -6,3 +6,7 @@ class AutosFormulario(forms.Form):
     color=forms.CharField(max_length=15)
     anio=forms.IntegerField()
     precio=forms.IntegerField()
+
+class SucursalesFormulario(forms.Form):
+    ciudad=forms.CharField(max_length=35)
+    pais=forms.CharField(max_length=15)
