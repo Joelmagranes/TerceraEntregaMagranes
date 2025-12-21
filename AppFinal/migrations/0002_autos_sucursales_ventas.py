@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('AppCoder', '0001_initial'),
+        ('AppFinal', '0001_initial'),
     ]
 
     operations = [
@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('fecha', models.DateField()),
-                ('autos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='AppCoder.autos')),
-                ('sucursales', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='AppCoder.sucursales')),
+                ('autos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='AppFinal.autos')),
+                ('sucursales', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='AppFinal.sucursales')),
             ],
         ),
     ]

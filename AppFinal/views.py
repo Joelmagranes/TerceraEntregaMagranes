@@ -1,22 +1,22 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from AppCoder.forms import AutosFormulario, SucursalesFormulario
-from AppCoder.models import Autos
-from AppCoder.models import Sucursales
+from AppFinal.forms import AutosFormulario, SucursalesFormulario
+from AppFinal.models import Autos
+from AppFinal.models import Sucursales
 
 
 def inicio(request):
-    return render (request , "appcoder/inicio.html")
+    return render (request , "AppFinal/inicio.html")
 def Autos_view(request):
     Lista_Autos = Autos.objects.all()
-    return render(request,"appcoder/Autos.html",{"Autos":Lista_Autos})
+    return render(request,"AppFinal/Autos.html",{"Autos":Lista_Autos})
 
 def Sucursales_view(request):
-     return render(request, "appcoder/Sucursales.html")
+     return render(request, "AppFinal/Sucursales.html")
 
 def Ventas(request):
-     return render( request,"appcoder/Ventas.html")
+     return render( request,"AppFinal/Ventas.html")
 
 def Cargar_auto (request):
      if request.method == 'POST':
@@ -31,11 +31,11 @@ def Cargar_auto (request):
                 anio=informacion['anio'],
                 precio=informacion['precio'],)
                nuevo_auto.save()
-               return render (request, "appcoder/inicio.html")
+               return render (request, "AppFinal/inicio.html")
      else:
           miformulario=AutosFormulario()
 
-     return render(request,"appcoder/AutosFormulario.html", {"miformulario":miformulario})
+     return render(request,"AppFinal/AutosFormulario.html", {"miformulario":miformulario})
 
 def Cargar_sucursal (request):
      if request.method == 'POST':
@@ -47,31 +47,31 @@ def Cargar_sucursal (request):
                ciudad=informacion['ciudad'],
                pais=informacion['pais'],)
                nueva_sucursal.save()
-               return render (request, "appcoder/inicio.html")
+               return render (request, "AppFinal/inicio.html")
      else:
           miformulario=SucursalesFormulario()
-     return render(request,"appcoder/sucursalesFormulario.html", {"miformulario":miformulario})
+     return render(request,"AppFinal/sucursalesFormulario.html", {"miformulario":miformulario})
 
 def busquedamodelo(request):
-     return render (request, "appcoder/busquedamodelo.html")
+     return render (request, "AppFinal/busquedamodelo.html")
 
 def buscar(request):
      if request.GET['modelo']:
           modelo=request.GET['modelo']
           autos=Autos.objects.filter(modelo__icontains=modelo)
-          return render (request, "appcoder/resultadobusqueda.html", {"autos":autos, "modelo":modelo})
+          return render (request, "AppFinal/resultadobusqueda.html", {"autos":autos, "modelo":modelo})
      else:
           respuesta="No enviaste datos"
           return HttpResponse(respuesta)
 
 def busquedasucursal(request):
-     return render (request, "appcoder/busquedasucursal.html")     
+     return render (request, "AppFinal/busquedasucursal.html")     
 
 def buscarsucursal(request):
      if request.GET['ciudad']:
           ciudad=request.GET['ciudad']
           sucursales=Sucursales.objects.filter(ciudad__icontains=ciudad)
-          return render (request, "appcoder/resultadobusquedasucursal.html", {"sucursales":sucursales, "ciudad":ciudad})
+          return render (request, "AppFinal/resultadobusquedasucursal.html", {"sucursales":sucursales, "ciudad":ciudad})
      else:
           respuesta="No enviaste datos"
           return HttpResponse(respuesta)
