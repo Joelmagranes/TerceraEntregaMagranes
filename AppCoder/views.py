@@ -8,7 +8,6 @@ from AppCoder.models import Sucursales
 
 def inicio(request):
     return render (request , "appcoder/inicio.html")
-
 def Autos_view(request):
     Lista_Autos = Autos.objects.all()
     return render(request,"appcoder/Autos.html",{"Autos":Lista_Autos})
