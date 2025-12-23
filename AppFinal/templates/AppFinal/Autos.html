@@ -1,15 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autos</title>
-</head>
-<body>
-    {% extends "AppFinal/inicio.html" %}
-    {% load static %}
-    {% block contenidoQueCambia %}
-       <h1>Autos disponibles</h1>
-    {% endblock %}
-</body>
-</html>
+{% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+
+<h1>Lista de Autos</h1>
+
+<p>
+    <a href="{% url 'AutosAgregar' %}">Agregar auto</a>
+</p>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Año</th>
+            <th>Color</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for auto in autos %}
+        <tr>
+            <td>{{ auto.marca }}</td>
+            <td>{{ auto.modelo }}</td>
+            <td>{{ auto.anio }}</td>
+            <td>{{ auto.color }}</td>
+            <td>{{ auto.precio }}</td>
+            <td>
+                <a href="{% url 'AutosEditar' auto.id %}">Editar</a> |
+                <a href="{% url 'AutosEliminar' auto.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No hay autos cargados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

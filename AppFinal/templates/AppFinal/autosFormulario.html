@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Autos</title>
-</head>
-<body>
-    {% if miformulario.errors %}
-    <p> ESTAN MAL LOSS DATOS</p>
+{% extends "AppFinal/inicio.html" %}
 
-    {% endif %}
-    <form action="/AutosFormulario/" method="post"> 
-        {% csrf_token %}
-        <table>
-        {{miformulario.as_table}}
-        </table>
-        <input type="submit" value="enviar">
-    </form>
-</body>
-</html>
+{% block contenidoQueCambia %}
+
+<h1>{% if auto %}Editar Auto{% else %}Agregar Auto{% endif %}</h1>
+
+{% if miformulario.errors %}
+<p style="color:red;">Hay errores en el formulario</p>
+{% endif %}
+
+{% if auto %}
+<form method="post" action="{% url 'AutosEditar' auto.id %}">
+{% else %}
+<form method="post" action="{% url 'AutosAgregar' %}">
+{% endif %}
+    {% csrf_token %}
+    <table>
+        {{ miformulario.as_table }}
+    </table>
+    <input type="submit" value="Guardar">
+</form>
+
+{% endblock %}

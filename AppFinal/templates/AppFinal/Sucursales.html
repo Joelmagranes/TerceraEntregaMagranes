@@ -9,7 +9,29 @@
     {% extends "AppFinal/inicio.html" %}
     {% load static %}
     {% block contenidoQueCambia %}
-       <h1>Sucursales</h1>
+       <h2>Listado de Sucursales</h2>
+
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Ciudad</th>
+            <th>País</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sucursal in sucursales %}
+        <tr>
+            <td>{{ sucursal.ciudad }}</td>
+            <td>{{ sucursal.pais }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No hay sucursales registradas.</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
     {% endblock %}
 </body>
 </html>

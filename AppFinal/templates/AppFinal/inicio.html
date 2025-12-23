@@ -22,14 +22,23 @@
             <div class="container">
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'Autos' %}">Autos</a>
-                 <a class="navbar-brand" href="{% url 'Sucursales' %}">Sucursales</a>
-                    <a class="navbar-brand" href="{% url 'Ventas' %}">Ventas</a>
-                 <a class="btn btn-primary" href="#signup">Sign Up</a>
+                <a class="navbar-brand" href="{% url 'Sucursales' %}">Sucursales</a>
+                <a class="navbar-brand" href="{% url 'Ventas' %}">Ventas</a>
+                 
+                {% if user.is_authenticated %}
+                 <span class="navbar-text">Hola, {{ user.username }}!</span>
+                 <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger">Cerrar sesión</button>
+                    </form>
                  <a class="btn btn-outline-primary" href="{% url 'busquedacamada' %}">Buscar Autos</a>
                  <a class="btn btn-outline-primary" href="{% url 'FormularioSucursal' %}">Buscar Sucursales</a>
                  <a class="btn btn-success" href="{% url 'AutosFormulario' %}">Agregar Auto</a>
                  <a class="btn btn-success" href="{% url 'SucursalesFormulario' %}">Agregar Sucursal</a>
-
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'register' %}">Registrarse</a>
+                    <a class="btn btn-outline-primary" href="{% url 'login' %}">Iniciar sesión</a>
+                {% endif %}
             </div>
         </nav>
         <!-- Masthead-->
