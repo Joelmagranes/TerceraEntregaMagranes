@@ -2,13 +2,20 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from AppFinal.forms import AutosFormulario, SucursalesFormulario
-from AppFinal.models import Autos
+from AppFinal.models import Autos, Avatar
 from AppFinal.models import Sucursales
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from .forms import UserRegisterForm
+from .forms import AvatarForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from .forms import UserEditForm
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from django.views.generic import DeleteView
+from django.contrib.auth.mixins import UserPassesTestMixin
+
 
 
 
@@ -28,7 +35,7 @@ def Ventas(request):
 @login_required
 def Cargar_auto (request):
      if request.method == 'POST':
-          miformulario=AutosFormulario(request.POST)
+          miformulario=AutosFormulario(request.POST, request.FILES)
           print(miformulario)
           if miformulario.is_valid():
                informacion=miformulario.cleaned_data
@@ -37,7 +44,8 @@ def Cargar_auto (request):
                 modelo=informacion['modelo'],
                 color=informacion['color'],
                 anio=informacion['anio'],
-                precio=informacion['precio'],)
+                precio=informacion['precio'],
+                imagen=informacion.get('imagen'),)
                nuevo_auto.save()
                return render (request, "AppFinal/inicio.html")
      else:
@@ -89,7 +97,7 @@ def editar_auto(request, id):
     auto = Autos.objects.get(id=id)
 
     if request.method == "POST":
-        form = AutosFormulario(request.POST)
+        form = AutosFormulario(request.POST, request.FILES)
         if form.is_valid():
             info = form.cleaned_data
             auto.marca = info["marca"]
@@ -97,6 +105,9 @@ def editar_auto(request, id):
             auto.color = info["color"]
             auto.anio = info["anio"]
             auto.precio = info["precio"]
+            if "imagen" in request.FILES:
+                auto.imagen = request.FILES["imagen"]
+
             auto.save()
             return redirect("Autos")
     else:
@@ -108,7 +119,7 @@ def editar_auto(request, id):
             "precio": auto.precio,
         })
 
-    return render(request, "AppFinal/AutosFormulario.html", {"miformulario": form,"auto":auto})
+    return render(request, "AppFinal/AutosFormulario.html", {"miformulario": form, "auto": auto})
 
 @staff_member_required
 def eliminar_auto(request, id):
@@ -130,3 +141,59 @@ class RegisterView(CreateView):
             user.is_staff = True
         user.save()
         return super().form_valid(form)
+
+
+@login_required
+def editarPerfil(request):
+    usuario = request.user
+
+    if request.method == "POST":
+        formulario = UserEditForm(request.POST, instance=usuario)
+
+        if formulario.is_valid():
+            formulario.save()
+            return render(request, "AppFinal/inicio.html")
+
+    else:
+        formulario = UserEditForm(instance=usuario)
+
+    return render(
+        request,
+        "AppFinal/editar_perfil.html",
+        {"miFormulario": formulario, "usuario": usuario},
+    )
+
+class CambiarContrasenia(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'AppFinal/cambiar_contrasenia.html'
+    success_url = reverse_lazy('EditarPerfil')
+
+@login_required
+def agregarAvatar(request):
+    if request.method == 'POST':
+        form = AvatarForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            avatar = Avatar.objects.filter(user=request.user)
+            if avatar.exists():
+                avatar.delete()
+
+            nuevo_avatar = Avatar(user=request.user, imagen=form.cleaned_data['imagen'])
+            nuevo_avatar.save()
+
+            return render(request, "AppFinal/inicio.html")
+
+    else:
+        form = AvatarForm()
+
+    return render(request, "AppFinal/agregar_avatar.html", {"form": form})
+
+class AboutView(TemplateView):
+    template_name = "AppFinal/about.html"
+
+class SucursalDeleteView(UserPassesTestMixin, DeleteView):
+    model = Sucursales
+    template_name = "AppFinal/borrarsucursales.html"
+    success_url = reverse_lazy("Sucursales")
+
+    def test_func(self):
+        return self.request.user.is_staff

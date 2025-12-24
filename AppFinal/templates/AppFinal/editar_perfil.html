@@ -1,0 +1,60 @@
+{% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+
+{% with user.avatar_set.first as avatar %}
+    {% if avatar %}
+        <img src="{{ avatar.imagen.url }}" class="rounded-circle mb-3" width="120" height="120">
+    {% else %}
+        <p>No tenés avatar cargado.</p>
+    {% endif %}
+{% endwith %}
+
+<h1>Formulario - Editar Perfil</h1>
+<h2>De {{ usuario.username }}</h2>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ miFormulario.as_table }}
+    </table>
+
+    <!-- Botón para cambiar o agregar avatar -->
+    <a class="btn btn-outline-primary mt-3" href="{% url 'AgregarAvatar' %}">
+        Cambiar / Agregar Avatar
+    </a>
+
+    <br><br>
+
+    <input type="submit" value="Guardar cambios" class="btn btn-success">
+</form>
+
+{% endblock %}
+
+
+{% comment %} {% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+{% with user.avatar_set.first as avatar %}
+    {% if avatar %}
+        <img src="{{ avatar.imagen.url }}" class="rounded-circle mb-3" width="120" height="120">
+    {% else %}
+        <p>No tenés avatar cargado.</p>
+    {% endif %}
+{% endwith %}
+<h1>Formulario - Editar Perfil</h1>
+<h2>De {{ usuario.username }}</h2>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ miFormulario.as_table }}
+        <a class="btn btn-outline-primary mt-3" href="{% url 'AgregarAvatar' %}">
+    Cambiar / Agregar Avatar
+</a>
+
+    </table>
+    <input type="submit" value="Guardar cambios">
+</form>
+
+{% endblock %} {% endcomment %}

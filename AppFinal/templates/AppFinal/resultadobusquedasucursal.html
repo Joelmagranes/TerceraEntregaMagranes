@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Resultados de búsqueda - Sucursales</title>
-</head>
-<body>
-    <p>Estamos buscando la ciudad: {{ ciudad }}</p>
+{% extends "AppFinal/inicio.html" %}
 
-    {% if sucursales %}
-        <ul>
-            {% for sucursal in sucursales %}
-                <li>
-                    Ciudad: {{ sucursal.ciudad }} |
-                    País: {{ sucursal.pais }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Sin resultados</p>
-    {% endif %}
-</body>
-</html>
+{% block contenidoQueCambia %}
+
+<h1>Resultados de búsqueda - Sucursales</h1>
+
+<p>Estamos buscando la ciudad: <strong>{{ ciudad }}</strong></p>
+
+{% if sucursales %}
+    <ul class="list-group">
+        {% for sucursal in sucursales %}
+            <li class="list-group-item">
+                <strong>Ciudad:</strong> {{ sucursal.ciudad }} |
+                <strong>País:</strong> {{ sucursal.pais }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-danger">Sin resultados</p>
+{% endif %}
+
+{% endblock %}

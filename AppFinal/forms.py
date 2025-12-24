@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
+
+from AppFinal.models import Avatar
 
 
 
@@ -10,6 +13,7 @@ class AutosFormulario(forms.Form):
     color=forms.CharField(max_length=15)
     anio=forms.IntegerField()
     precio=forms.IntegerField()
+    imagen=forms.ImageField(required=False)
 
 class SucursalesFormulario(forms.Form):
     ciudad=forms.CharField(max_length=35)
@@ -33,8 +37,24 @@ class UserRegisterForm(UserCreationForm):
             'password2',
             'admin_key',
         ]
-def clean_admin_key(self):
-    key = self.cleaned_data.get("admin_key")
-    if key and key != "Coderhouse":
-        raise forms.ValidationError("La clave de administrador es incorrecta.")
-    return key
+    def clean_admin_key(self):
+        key = self.cleaned_data.get("admin_key")
+        if key and key != "Coderhouse":
+            raise forms.ValidationError("La clave de administrador es incorrecta.")
+        return key
+    
+
+class UserEditForm(UserChangeForm):
+    password = None
+    email = forms.EmailField(label="Ingrese su email:")
+    last_name = forms.CharField(label="Apellido")
+    first_name = forms.CharField(label="Nombre")
+
+    class Meta:
+        model = User
+        fields = ['email', 'last_name', 'first_name']
+
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = Avatar
+        fields = ['imagen']

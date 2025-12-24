@@ -1,0 +1,14 @@
+{% extends "AppFinal/inicio.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+<h1>Cambiar contraseña</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn btn-primary">Cambiar</button>
+</form>
+{% endblock %}

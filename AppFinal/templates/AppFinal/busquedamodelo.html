@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Búsqueda</title>
-</head>
-<body>
-    <form action="/buscar" method="GET">
-        <label for="modelo">Nombre de modelo:</label>
-        <input type="text" name="modelo" id="modelo">
-        <input type="submit" value="Buscar">
-    </form>
-</body>
-</html>
+{% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+
+<h1>Buscar Auto por Modelo</h1>
+
+<form action="/buscar" method="GET">
+    <table>
+        <tr>
+            <td><label for="modelo">Nombre de modelo:</label></td>
+            <td><input type="text" name="modelo" id="modelo"></td>
+        </tr>
+    </table>
+    <input type="submit" value="Buscar">
+</form>
+
+{% endblock %}

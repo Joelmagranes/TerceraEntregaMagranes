@@ -1,25 +1,95 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados de búsqueda</title>
-</head>
-<body>
-    <p>Estamos buscando el modelo: {{ modelo }}</p>
+{% extends "AppFinal/inicio.html" %}
 
-    {% if autos %}
-        <ul>
-            {% for auto in autos %}
-                <li>Marca: {{ auto.marca }} |
-                    Modelo: {{ auto.modelo }} |
-                    Año: {{ auto.anio }} |
-                    Color: {{ auto.color }} |
-                    Precio: {{ auto.precio }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Sin resultados</p>
-    {% endif %}
-</body>
-</html>
+{% block contenidoQueCambia %}
+
+<section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container-fluid px-5">
+        <h2 class="text-center mb-4 display-5 fw-bold">Resultados de búsqueda</h2>
+        <p class="text-center mb-5">Estamos buscando el modelo: <strong>{{ modelo }}</strong></p>
+
+        {% if autos %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                        <th>Color</th>
+                        <th>Precio</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for auto in autos %}
+                    <tr>
+                        <td>{{ auto.marca }}</td>
+                        <td>{{ auto.modelo }}</td>
+                        <td>{{ auto.anio }}</td>
+                        <td>{{ auto.color }}</td>
+                        <td>${{ auto.precio }}</td>
+                        <td>
+                            {% if auto.imagen %}
+                                <img src="{{ auto.imagen.url }}" alt="Imagen de {{ auto.modelo }}" class="img-fluid rounded shadow" style="max-width: 200px;">
+                            {% else %}
+                                <span class="text-muted">Sin imagen</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center text-muted">Sin resultados</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+
+
+{% comment %} {% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+
+<h1>Resultados de búsqueda</h1>
+
+<p>Estamos buscando el modelo: <strong>{{ modelo }}</strong></p>
+
+{% if autos %}
+<table border="1">
+    <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Año</th>
+            <th>Color</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for auto in autos %}
+        <tr>
+            <td>{{ auto.marca }}</td>
+            <td>{{ auto.modelo }}</td>
+            <td>{{ auto.anio }}</td>
+            <td>{{ auto.color }}</td>
+            <td>{{ auto.precio }}</td>
+           <td> {% if auto.imagen %}
+            <img src="{{ auto.imagen.url }}" alt="Imagen de {{ auto.modelo }}" style="max-width: 150px;">
+        {% else %}
+            Sin imagen
+        {% endif %}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Sin resultados</p>
+{% endif %}
+
+{% endblock %}
+ {% endcomment %}

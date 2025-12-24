@@ -1,9 +1,11 @@
 
-from django.urls import path
+from django.urls import include, path
 from AppFinal import views
-from .views import Autos_view, Cargar_auto, RegisterView, editar_auto, eliminar_auto
+from .views import AboutView, Autos_view, CambiarContrasenia, Cargar_auto, RegisterView, SucursalDeleteView, editar_auto, eliminar_auto
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.inicio, name="Inicio"),
@@ -20,6 +22,7 @@ urlpatterns = [
     path("Autos/agregar/", Cargar_auto, name="AutosAgregar"),
     path("Autos/editar/<int:id>/", editar_auto, name="AutosEditar"),
     path("Autos/eliminar/<int:id>/", eliminar_auto, name="AutosEliminar"),
+    path("editarPerfil/", views.editarPerfil, name="EditarPerfil"),
     ]
 
 url_vistas_clases = [
@@ -28,6 +31,12 @@ url_vistas_clases = [
         template_name='AppFinal/login.html'
     ), name='login'),
     path('logout/', LogoutView.as_view(template_name='AppFinal/logout.html'), name='logout'),
+    path('cambiarContrasenia/', CambiarContrasenia.as_view(), name="CambiarContrasenia"),
+    path('agregarAvatar/', views.agregarAvatar, name="AgregarAvatar"),
+    path('about/', AboutView.as_view(), name="About"),
+    path('sucursal/eliminar/<int:pk>/', SucursalDeleteView.as_view(), name="EliminarSucursal"),
+
 ]
 
 urlpatterns += url_vistas_clases
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

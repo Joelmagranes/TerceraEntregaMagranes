@@ -9,6 +9,32 @@
 {% endif %}
 
 {% if auto %}
+<form method="post" enctype="multipart/form-data" action="{% url 'AutosEditar' auto.id %}">
+{% else %}
+<form method="post" enctype="multipart/form-data" action="{% url 'AutosAgregar' %}">
+{% endif %}
+    {% csrf_token %}
+    <table>
+        {{ miformulario.as_table }}
+    </table>
+    <input type="submit" value="Guardar">
+</form>
+
+{% endblock %}
+
+
+
+{% comment %} {% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+
+<h1>{% if auto %}Editar Auto{% else %}Agregar Auto{% endif %}</h1>
+
+{% if miformulario.errors %}
+<p style="color:red;">Hay errores en el formulario</p>
+{% endif %}
+
+{% if auto %}
 <form method="post" action="{% url 'AutosEditar' auto.id %}">
 {% else %}
 <form method="post" action="{% url 'AutosAgregar' %}">
@@ -20,4 +46,4 @@
     <input type="submit" value="Guardar">
 </form>
 
-{% endblock %}
+{% endblock %} {% endcomment %}

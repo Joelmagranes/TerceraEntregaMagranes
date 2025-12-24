@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Buscar Sucursal</title>
-</head>
-<body>
-    <form action="/buscarsucursal/" method="GET">
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" name="ciudad" id="ciudad">
-        <input type="submit" value="Buscar">
-    </form>
-</body>
-</html>
+{% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+<h1>Buscar Sucursal</h1>
+
+<form action="{% url 'buscarsucursal' %}" method="GET">
+    <label for="ciudad">Ciudad:</label>
+    <input type="text" name="ciudad" id="ciudad" class="form-control mb-2">
+    <input type="submit" value="Buscar" class="btn btn-primary">
+</form>
+{% endblock %}

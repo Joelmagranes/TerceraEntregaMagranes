@@ -1,0 +1,12 @@
+{% extends "AppFinal/inicio.html" %}
+
+{% block contenidoQueCambia %}
+<h1>Agregar Avatar</h1>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+{% endblock %}
