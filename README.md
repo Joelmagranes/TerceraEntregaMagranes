@@ -53,3 +53,5 @@ Este proyecto es una aplicación web desarrollada con Django que permite gestion
   -py pipenv shell 
   -py manage.py runserver
 
+## LINK del Video que demuestra que la pagina funciona: 
+https://drive.google.com/drive/folders/1EJm-jan5DFNnBFH3wgtqFRIVvEEvzyKn
